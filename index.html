@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Adobe InDesign and Adobe Illustrator for beginners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Figtree:wght@400;600;700;800&family=Fraunces:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F7F2;
+  --ink: #000000;
+  --muted: #2E2E2E;
+  --card: #F7F7F2;
+  --head: #054A91;
+  --detail: #054A91;
+  --mint: #E4FDE1;
+  --cyan: #00B4D8;
+  --blue: #054A91;
+  --btn-bg: #054A91;
+  --btn-ink: #F7F7F2;
+  --foot-bg: #000000;
+  --foot-ink: #F7F7F2;
+  --foot-head: #00B4D8;
+  --display: "Bagel Fat One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --serif: "Fraunces", Georgia, serif;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000; --ink: #F7F7F2; --muted: #C8CBC5; --card: #0C1218;
+    --head: #00B4D8; --detail: #00B4D8; --mint: #0F2A22; --cyan: #04596E; --blue: #054A91;
+    --btn-bg: #00B4D8; --btn-ink: #000000;
+    --foot-bg: #0C1218; --foot-ink: #F7F7F2; --foot-head: #00B4D8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000000; --ink: #F7F7F2; --muted: #C8CBC5; --card: #0C1218;
+  --head: #00B4D8; --detail: #00B4D8; --mint: #0F2A22; --cyan: #04596E; --blue: #054A91;
+  --btn-bg: #00B4D8; --btn-ink: #000000;
+  --foot-bg: #0C1218; --foot-ink: #F7F7F2; --foot-head: #00B4D8;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 80px); scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 1.0625rem; line-height: 1.6; -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--bg);
+}
+h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.08; margin: 0; color: var(--head); }
+h2 { font-size: clamp(1.9rem, 4.2vw, 3rem); max-width: 20ch; }
+h3 { font-size: 1.45rem; }
+p { margin: 0; }
+a { color: inherit; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+.lead { font-size: 1.2rem; max-width: 56ch; margin-top: 18px; color: var(--muted); }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+
+/* checkerboard: set --sq (square size), --a and --b */
+.ck {
+  --sq: 32px; --a: var(--blue); --b: var(--bg);
+  background: conic-gradient(var(--a) 25%, var(--b) 0 50%, var(--a) 0 75%, var(--b) 0) 0 0 / calc(var(--sq) * 2) calc(var(--sq) * 2);
+}
+.ck-band { height: 56px; --sq: 28px; --a: var(--ink); --b: var(--bg); border-block: 2.5px solid var(--ink); }
+
+/* header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 2.5px solid var(--ink); }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-size: 1.1rem; white-space: nowrap; color: var(--head); }
+.brand i { width: 30px; height: 30px; flex: none; border: 2.5px solid var(--ink); border-radius: 8px; --sq: 7px; --a: var(--blue); --b: var(--cyan); }
+.nav { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { text-decoration: none; font-weight: 700; font-size: 0.95rem; padding: 8px 14px; border-radius: 999px; white-space: nowrap; border: 2px solid transparent; }
+.nav a:hover { border-color: var(--ink); background: var(--mint); }
+@media (max-width: 760px) { .brand span { display: none; } }
+
+/* buttons */
+.btn {
+  display: inline-block; text-decoration: none; font-weight: 800; font-family: var(--body);
+  padding: 14px 26px; border-radius: 999px; border: 2.5px solid var(--ink);
+  background: var(--btn-bg); color: var(--btn-ink); cursor: pointer; font-size: 1rem;
+  box-shadow: 4px 4px 0 var(--ink); transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.btn.ghost { background: var(--bg); color: var(--ink); }
+
+/* hero: bento grid, like the faces of a pack */
+.hero { padding: clamp(24px, 4vw, 44px) 0 clamp(28px, 5vw, 52px); }
+.bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+.panel { border: 2.5px solid var(--ink); border-radius: 32px; }
+.b-title { grid-column: 1 / 8; background: var(--bg); padding: clamp(24px, 3.4vw, 44px); }
+.b-title h1 { font-size: clamp(2.2rem, 4.7vw, 3.9rem); line-height: 1.03; }
+.b-title .sub { font-size: 1.2rem; margin-top: 20px; max-width: 44ch; font-weight: 600; color: var(--muted); }
+.b-title .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.b-art { grid-column: 8 / 13; grid-row: 1 / 3; --sq: 36px; --a: var(--blue); --b: var(--bg); position: relative; display: grid; place-items: center; padding: 28px; overflow: hidden; min-height: 440px; }
+.stage { width: min(100%, 320px); aspect-ratio: 1; border-radius: 50%; background: var(--bg); border: 2.5px solid var(--ink); display: grid; place-items: center; }
+.cone { width: 64%; height: auto; overflow: visible; margin-top: 6%; }
+.sticker {
+  position: absolute; top: 18px; right: 18px; width: 104px; height: 104px; border-radius: 50%;
+  background: var(--cyan); color: var(--ink); border: 2.5px solid var(--ink); display: grid; place-items: center; text-align: center;
+  font-family: var(--display); font-size: 1.05rem; line-height: 1.05; transform: rotate(12deg); padding: 10px;
+}
+.b-row { grid-column: 1 / 8; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.stat { padding: 22px 26px; display: flex; flex-direction: column; justify-content: center; }
+.stat b { font-family: var(--display); font-weight: 400; font-size: 2.4rem; line-height: 1; }
+.stat span { font-weight: 700; margin-top: 6px; }
+.stat.s1 { background: var(--cyan); }
+.stat.s2 { background: var(--mint); }
+@media (max-width: 900px) {
+  .b-title, .b-row, .b-art { grid-column: 1 / -1; grid-row: auto; }
+  .b-art { min-height: 380px; }
+}
+@media (max-width: 480px) { .b-row { grid-template-columns: 1fr; } }
+
+/* the one orchestrated moment: scoops drop onto the cone */
+.drop { animation: drop .9s cubic-bezier(.3,1.4,.5,1) both; }
+.d1 { animation-delay: .25s; } .d2 { animation-delay: .7s; } .d3 { animation-delay: 1.15s; }
+@keyframes drop {
+  0% { transform: translateY(-300px); opacity: 0; }
+  15% { opacity: 1; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .drop { animation: none; } html { scroll-behavior: auto; } }
+
+/* sections */
+section { padding: clamp(52px, 8vw, 96px) 0; }
+#tools { background: var(--mint); border-block: 2.5px solid var(--ink); }
+#projects { background: var(--cyan); border-block: 2.5px solid var(--ink); }
+#projects h2 { color: var(--ink); }
+
+/* a card with a checkerboard strip on top */
+.pack { border: 2.5px solid var(--ink); border-radius: 26px; overflow: hidden; background: var(--card); --a: var(--blue); --b: var(--card); }
+.pack::before {
+  content: ""; display: block; height: 22px; border-bottom: 2.5px solid var(--ink);
+  background: conic-gradient(var(--a) 25%, var(--b) 0 50%, var(--a) 0 75%, var(--b) 0) 0 0 / 22px 22px;
+}
+.pack-body { padding: clamp(20px, 3vw, 30px); }
+
+/* about */
+.flavors { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 44px; }
+.flavor { box-shadow: 6px 6px 0 var(--ink); }
+.flavor.cyan { background: var(--mint); --a: var(--cyan); --b: var(--mint); }
+.flavor.blue { background: var(--card); --a: var(--blue); --b: var(--card); }
+.flavor .tag { font-weight: 800; margin-top: 10px; color: var(--detail); }
+.flavor ul { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px; }
+.flavor li { padding-left: 28px; position: relative; }
+.flavor li::before { content: ""; position: absolute; left: 0; top: .5em; width: 14px; height: 14px; border-radius: 4px; border: 2.5px solid var(--ink); background: var(--cyan); }
+.note { margin-top: 32px; font-size: 1.1rem; font-weight: 700; max-width: 60ch; }
+@media (max-width: 760px) { .flavors { grid-template-columns: 1fr; } }
+
+/* tools */
+#tools h2 { color: var(--head); }
+.tabs { display: inline-flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; }
+.tab { font: 800 1rem var(--body); color: var(--ink); background: var(--bg); cursor: pointer; padding: 12px 22px; border-radius: 999px; border: 2.5px solid var(--ink); }
+.tab[aria-selected="true"] { background: var(--btn-bg); color: var(--btn-ink); }
+.toolgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-top: 28px; }
+.toolgrid[hidden] { display: none; }
+#panel-ai { --a: var(--cyan); }
+#panel-id { --a: var(--blue); }
+.tool { border: 2.5px solid var(--ink); border-radius: 22px; background: var(--card); overflow: hidden; --b: var(--card); }
+.tool::before { content: ""; display: block; height: 16px; border-bottom: 2.5px solid var(--ink); background: conic-gradient(var(--a) 25%, var(--b) 0 50%, var(--a) 0 75%, var(--b) 0) 0 0 / 16px 16px; }
+.tool h3 { font-family: var(--body); font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 16px 20px 0; }
+.tool p { margin: 8px 20px 20px; font-size: 0.98rem; line-height: 1.5; }
+.tool kbd { font: 700 0.8rem var(--body); color: var(--detail); border: 2px solid var(--detail); border-radius: 8px; padding: 1px 8px; background: var(--bg); white-space: nowrap; }
+
+/* tutorials */
+.sessions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 44px; list-style: none; padding: 0; }
+.session { box-shadow: 5px 5px 0 var(--ink); display: flex; flex-direction: column; }
+.session:nth-child(1) { background: var(--mint); --a: var(--blue); --b: var(--mint); }
+.session:nth-child(2) { background: var(--cyan); --a: var(--blue); --b: var(--cyan); }
+.session:nth-child(2) h3 { color: var(--ink); }
+.session:nth-child(3) { background: var(--card); --a: var(--cyan); --b: var(--card); }
+.session:nth-child(4) { background: var(--blue); --a: var(--cyan); --b: var(--blue); color: #F7F7F2; }
+.session:nth-child(4) h3 { color: #F7F7F2; }
+.session .pack-body { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.session .n { font-family: var(--display); font-size: 3rem; line-height: 1; }
+.session h3 { font-size: 1.3rem; }
+.session p { font-size: 0.98rem; line-height: 1.5; }
+.practice { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; justify-content: space-between; background: var(--card); padding: 22px 28px; }
+.practice p { font-weight: 700; max-width: 46ch; }
+.practice .links { display: flex; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 980px) { .sessions { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .sessions { grid-template-columns: 1fr; } }
+
+/* projects */
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 44px; }
+.gallery figure { margin: 0; }
+.gallery figcaption { margin-top: 10px; font-size: 0.95rem; font-weight: 800; color: var(--ink); }
+@media (max-width: 760px) { .gallery { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+.tile {
+  position: relative; aspect-ratio: 3 / 4; border: 2.5px solid var(--ink); border-radius: 22px; overflow: hidden;
+  padding: 7cqw; container-type: inline-size; display: flex; flex-direction: column; justify-content: space-between;
+}
+.tile .word { position: relative; z-index: 2; line-height: 0.95; }
+.tile .lines { position: relative; z-index: 2; height: 22cqw; width: 62%; background: repeating-linear-gradient(to bottom, currentColor 0 2px, transparent 2px 7px); opacity: .6; }
+.tile .shape { position: absolute; z-index: 1; border: 2.5px solid var(--ink); }
+.t1 { background: var(--bg); color: var(--ink); }
+.t1 .word { font-family: var(--display); font-size: 17cqw; color: var(--head); }
+.t1 .shape { width: 70cqw; height: 70cqw; border-radius: 50%; background: #054A91; right: -22cqw; bottom: -18cqw; }
+.t2 { background: var(--mint); color: var(--ink); }
+.t2 .word { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 26cqw; color: var(--head); }
+.t2 .shape { left: 0; right: 0; top: 46%; height: 14cqw; border-left: 0; border-right: 0; background: conic-gradient(#054A91 25%, #F7F7F2 0 50%, #054A91 0 75%, #F7F7F2 0) 0 0 / 14cqw 14cqw; }
+.t3 { background: var(--card); color: var(--ink); flex-direction: row; }
+.t3 .word { font-family: var(--display); font-size: 21cqw; writing-mode: vertical-rl; color: var(--head); }
+.t3 .lines { align-self: flex-end; width: 34%; height: 40cqw; }
+.t3 .shape { width: 44cqw; height: 44cqw; border-radius: 50% 50% 0 0; background: #00B4D8; right: 6cqw; top: 6cqw; }
+.t4 { background: #054A91; color: #F7F7F2; }
+.t4 .word { font-family: var(--body); font-weight: 800; font-size: 28cqw; letter-spacing: -0.05em; }
+.t4 .shape { width: 52cqw; height: 52cqw; border-radius: 14cqw 0 14cqw 0; right: 8cqw; top: 34%; transform: rotate(12deg); background: conic-gradient(#00B4D8 25%, #E4FDE1 0 50%, #00B4D8 0 75%, #E4FDE1 0) 0 0 / 26cqw 26cqw; border-color: #000; }
+.t5 { background: var(--bg); color: var(--ink); }
+.t5 .word { font-family: var(--serif); font-weight: 600; font-size: 22cqw; }
+.t5 .shape { width: 26cqw; height: 26cqw; border-radius: 50%; background: #00B4D8; right: 10cqw; top: 46%; }
+.t5 .shape.b { width: 16cqw; height: 16cqw; background: #054A91; right: 28cqw; top: 62%; }
+.t6 { background: #000; color: #F7F7F2; }
+.t6 .word { font-family: var(--display); font-size: 23cqw; color: #00B4D8; }
+.t6 .shape { width: 40cqw; height: 40cqw; border-radius: 50%; background: #E4FDE1; right: 8cqw; top: 38%; box-shadow: inset -12cqw -4cqw 0 #00B4D8; border-color: #F7F7F2; }
+
+/* closing: the inner label sits on a checkerboard wrapper */
+#next { padding-block: clamp(40px, 6vw, 80px); }
+.wrapper { --sq: 40px; --a: var(--cyan); --b: var(--mint); border: 2.5px solid var(--ink); border-radius: 36px; padding: clamp(14px, 3vw, 32px); }
+.label { background: var(--bg); border: 2.5px solid var(--ink); border-radius: 26px; padding: clamp(24px, 4vw, 52px); display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
+.label h2 { max-width: 14ch; font-size: clamp(2.1rem, 4.6vw, 3.4rem); }
+.label .lead { color: var(--ink); }
+.label .btn { margin-top: 30px; }
+.translate { list-style: none; padding: 0; margin: 0; border-top: 2.5px solid var(--ink); }
+.translate li { padding: 18px 0; border-bottom: 2.5px solid var(--ink); }
+.translate strong { font-family: var(--display); font-weight: 400; font-size: 1.25rem; display: block; color: var(--head); }
+.translate span { display: block; margin-top: 4px; }
+@media (max-width: 860px) { .label { grid-template-columns: 1fr; } }
+
+/* footer */
+footer { background: var(--foot-bg); color: var(--foot-ink); font-size: 0.95rem; }
+footer .ck-band { --a: var(--cyan); --b: var(--foot-bg); border-color: var(--foot-bg); height: 40px; --sq: 20px; }
+footer .wrap { display: grid; gap: 8px; padding-block: 32px 44px; }
+footer strong { font-family: var(--display); font-weight: 400; font-size: 1.2rem; color: var(--foot-head); }
+footer small { opacity: .8; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <i class="ck" aria-hidden="true"></i>
+      <span>InDesign + Illustrator cohort</span>
+    </a>
+    <nav class="nav" aria-label="Page sections">
+      <a href="#about">About</a>
+      <a href="#tools">Tools</a>
+      <a href="#tutorials">Tutorials</a>
+      <a href="#projects">Projects</a>
+      <a href="#next">What’s next</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap bento">
+    <div class="panel b-title">
+      <h1>Adobe InDesign and Adobe Illustrator for beginners</h1>
+      <p class="sub">A professional learning cohort for colleagues. Start with a blank artboard, finish with a page you designed yourself.</p>
+      <div class="cta">
+        <a class="btn" href="#about">See what you’ll learn</a>
+        <a class="btn ghost" href="#projects">Browse participant projects</a>
+      </div>
+    </div>
+
+    <div class="panel b-art ck">
+      <div class="sticker">for<br>beginners</div>
+      <div class="stage">
+        <svg class="cone" viewBox="0 20 360 500" role="img" aria-label="An ice cream cone with two scoops labeled Ai and Id">
+          <defs><clipPath id="coneClip"><path d="M80 270 L280 270 L180 500 Z"/></clipPath></defs>
+          <g stroke-linejoin="round" stroke-linecap="round">
+            <path d="M80 270 L280 270 L180 500 Z" fill="#E4FDE1" style="stroke:var(--ink)" stroke-width="7"/>
+            <g clip-path="url(#coneClip)" style="stroke:var(--ink)" stroke-width="4" opacity=".55">
+              <path d="M60 300 L240 520 M100 280 L280 500 M140 270 L320 470 M180 270 L340 430"/>
+              <path d="M300 300 L120 520 M260 280 L80 500 M220 270 L40 470 M180 270 L20 430"/>
+            </g>
+            <path d="M80 270 L280 270 L180 500 Z" fill="none" style="stroke:var(--ink)" stroke-width="7"/>
+
+            <g class="drop d1">
+              <path d="M82 245 A98 98 0 0 1 278 245 Q270 290 248 272 Q232 302 212 274 Q192 304 170 274 Q150 302 128 274 Q100 290 82 245 Z" fill="#00B4D8" style="stroke:var(--ink)" stroke-width="7"/>
+              <path d="M110 205 Q124 170 160 160" fill="none" stroke="#fff" stroke-width="8" opacity=".55"/>
+              <text x="180" y="236" text-anchor="middle" font-family="Bagel Fat One, Arial Rounded MT Bold, sans-serif" font-size="58" style="fill:#000000">Ai</text>
+            </g>
+            <g class="drop d2">
+              <path d="M98 165 A82 82 0 0 1 262 165 Q255 205 238 188 Q222 214 204 190 Q186 216 168 190 Q150 214 132 190 Q112 205 98 165 Z" fill="#054A91" style="stroke:var(--ink)" stroke-width="7"/>
+              <path d="M122 132 Q134 108 160 102" fill="none" stroke="#fff" stroke-width="7" opacity=".55"/>
+              <text x="180" y="156" text-anchor="middle" font-family="Bagel Fat One, Arial Rounded MT Bold, sans-serif" font-size="46" style="fill:#F7F7F2">Id</text>
+            </g>
+            <g class="drop d3">
+              <path d="M180 70 Q186 48 208 38" fill="none" style="stroke:var(--ink)" stroke-width="7"/>
+              <circle cx="180" cy="82" r="17" fill="#E4FDE1" style="stroke:var(--ink)" stroke-width="7"/>
+              <circle cx="174" cy="76" r="4" fill="#fff" opacity=".7" stroke="none"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="b-row">
+      <div class="panel stat s1"><b>4</b><span>hands-on sessions</span></div>
+      <div class="panel stat s2"><b>0</b><span>design experience needed</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="ck ck-band" aria-hidden="true"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <h2>Two programs, one way to make ideas look intentional</h2>
+    <p class="lead">Illustrator is where you draw. InDesign is where you arrange. Beginners learn them side by side, so a logo made in one can land on a page built in the other.</p>
+
+    <div class="flavors">
+      <article class="pack flavor cyan">
+        <div class="pack-body">
+          <h3>Adobe Illustrator</h3>
+          <p class="tag">Draw shapes, icons, and logos that stay sharp at any size.</p>
+          <ul>
+            <li>Build artwork from basic shapes and the Pen tool</li>
+            <li>Choose and organize color with swatches</li>
+            <li>Set type and turn it into artwork</li>
+            <li>Save and export for screen and print</li>
+          </ul>
+        </div>
+      </article>
+      <article class="pack flavor blue">
+        <div class="pack-body">
+          <h3>Adobe InDesign</h3>
+          <p class="tag">Lay out text and images across one page or many.</p>
+          <ul>
+            <li>Set up pages, margins, and columns</li>
+            <li>Flow text through frames and place images</li>
+            <li>Save formatting as styles so pages stay consistent</li>
+            <li>Export a PDF ready to share or print</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <p class="note">No design background needed. If you can use a word processor, you can start here.</p>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="wrap">
+    <h2>The tools you’ll use most</h2>
+    <p class="lead" style="color:var(--ink)">Pick a program to see the handful of tools beginners reach for in every session.</p>
+
+    <div class="tabs" role="tablist" aria-label="Choose a program">
+      <button class="tab" role="tab" id="tab-ai" aria-controls="panel-ai" aria-selected="true">Illustrator</button>
+      <button class="tab" role="tab" id="tab-id" aria-controls="panel-id" aria-selected="false" tabindex="-1">InDesign</button>
+    </div>
+
+    <div class="toolgrid" id="panel-ai" role="tabpanel" aria-labelledby="tab-ai">
+      <div class="tool"><h3>Selection <kbd>V</kbd></h3><p>Move, resize, and rotate whole objects.</p></div>
+      <div class="tool"><h3>Direct Selection <kbd>A</kbd></h3><p>Edit individual anchor points and handles to reshape a path.</p></div>
+      <div class="tool"><h3>Pen <kbd>P</kbd></h3><p>Draw precise straight lines and smooth curves.</p></div>
+      <div class="tool"><h3>Shape tools <kbd>M</kbd> <kbd>L</kbd></h3><p>Draw rectangles and ellipses, the building blocks of most logos.</p></div>
+      <div class="tool"><h3>Shape Builder <kbd>Shift+M</kbd></h3><p>Merge or cut away overlapping shapes by dragging across them.</p></div>
+      <div class="tool"><h3>Type <kbd>T</kbd></h3><p>Add text, choose fonts, and turn letters into outlines for artwork.</p></div>
+      <div class="tool"><h3>Eyedropper <kbd>I</kbd></h3><p>Copy color and style from one object to another.</p></div>
+      <div class="tool"><h3>Artboards <kbd>Shift+O</kbd></h3><p>Keep pages of different sizes together in one file.</p></div>
+    </div>
+
+    <div class="toolgrid" id="panel-id" role="tabpanel" aria-labelledby="tab-id" hidden>
+      <div class="tool"><h3>Selection <kbd>V</kbd></h3><p>Select, move, and resize frames and the objects inside them.</p></div>
+      <div class="tool"><h3>Type <kbd>T</kbd></h3><p>Draw a text frame and start writing, or place text from a document.</p></div>
+      <div class="tool"><h3>Rectangle Frame <kbd>F</kbd></h3><p>Create a placeholder frame for an image, then fill it later.</p></div>
+      <div class="tool"><h3>Gap <kbd>U</kbd></h3><p>Adjust the space between objects so columns and rows stay even.</p></div>
+      <div class="tool"><h3>Pages panel <kbd>F12</kbd></h3><p>Add, move, and delete pages, and apply a parent page.</p></div>
+      <div class="tool"><h3>Parent pages</h3><p>Set page numbers, headers, and margins once and repeat them everywhere.</p></div>
+      <div class="tool"><h3>Paragraph Styles</h3><p>Save text formatting and apply it in one click for consistent pages.</p></div>
+      <div class="tool"><h3>Export <kbd>Ctrl/Cmd+E</kbd></h3><p>Save a PDF for screens or for a print shop.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TUTORIALS -->
+<section id="tutorials">
+  <div class="wrap">
+    <h2>How the cohort runs</h2>
+    <p class="lead">Four hands-on sessions. Each one ends with something you made.</p>
+
+    <ol class="sessions">
+      <li class="pack session">
+        <div class="pack-body">
+          <span class="n" aria-hidden="true">1</span>
+          <h3>Meet Creative Cloud</h3>
+          <p>Tour the workspace, set up your files, and get the shared resource guide. Bring a few examples of design you admire for a short portfolio introduction.</p>
+        </div>
+      </li>
+      <li class="pack session">
+        <div class="pack-body">
+          <span class="n" aria-hidden="true">2</span>
+          <h3>Draw in Illustrator</h3>
+          <p>Build a simple logo from shapes, apply a color palette, and set a name in type.</p>
+        </div>
+      </li>
+      <li class="pack session">
+        <div class="pack-body">
+          <span class="n" aria-hidden="true">3</span>
+          <h3>Lay out in InDesign</h3>
+          <p>Set up a multi-page document, flow text into frames, and save paragraph styles.</p>
+        </div>
+      </li>
+      <li class="pack session">
+        <div class="pack-body">
+          <span class="n" aria-hidden="true">4</span>
+          <h3>Make your word page</h3>
+          <p>Combine both programs into a magazine-style page made of words about you, then share it with the group.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="panel practice">
+      <p>Keep practicing between sessions. Adobe publishes free step-by-step tutorials for each program.</p>
+      <div class="links">
+        <a class="btn" href="https://helpx.adobe.com/illustrator/tutorials.html" target="_blank" rel="noopener">Illustrator tutorials</a>
+        <a class="btn" href="https://helpx.adobe.com/indesign/tutorials.html" target="_blank" rel="noopener">InDesign tutorials</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <h2>Participant projects</h2>
+    <p class="lead" style="color:var(--ink)">Every colleague finishes with a magazine word page about themselves: type, color, and layout used to say who they are.</p>
+
+    <!-- To add real work: replace a .tile with <img src="..." alt="..."> inside the same <figure>, and update the caption. -->
+    <div class="gallery">
+      <figure>
+        <div class="tile t1" role="img" aria-label="Sample page with the word curious and a blue circle"><div class="word">curious</div><div class="shape"></div><div class="lines"></div></div>
+        <figcaption>Sample word page</figcaption>
+      </figure>
+      <figure>
+        <div class="tile t2" role="img" aria-label="Sample page with the word maker over a checkerboard stripe"><div class="word">maker</div><div class="shape"></div><div class="lines"></div></div>
+        <figcaption>Sample word page</figcaption>
+      </figure>
+      <figure>
+        <div class="tile t3" role="img" aria-label="Sample page with the word gardener set vertically"><div class="word">gardener</div><div class="shape"></div><div class="lines"></div></div>
+        <figcaption>Sample word page</figcaption>
+      </figure>
+      <figure>
+        <div class="tile t4" role="img" aria-label="Sample page with the word coach and a tilted checkerboard shape"><div class="word">coach</div><div class="shape"></div><div class="lines"></div></div>
+        <figcaption>Sample word page</figcaption>
+      </figure>
+      <figure>
+        <div class="tile t5" role="img" aria-label="Sample page with the word bookish and two circles"><div class="word">bookish</div><div class="shape"></div><div class="shape b"></div><div class="lines"></div></div>
+        <figcaption>Sample word page</figcaption>
+      </figure>
+      <figure>
+        <div class="tile t6" role="img" aria-label="Sample page with the words night owl and a moon"><div class="word">night<br>owl</div><div class="shape"></div><div class="lines"></div></div>
+        <figcaption>Sample word page</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section id="next">
+  <div class="wrap">
+    <div class="wrapper ck">
+      <div class="label">
+        <div>
+          <h2>Skills that travel well beyond this cohort</h2>
+          <p class="lead">Once you can draw a shape and lay out a page, a lot of everyday work gets easier, and it shows.</p>
+          <a class="btn" href="#top">Back to the top</a>
+        </div>
+        <ul class="translate">
+          <li><strong>Consistent communications</strong><span>Newsletters, handbooks, and reports that look like they came from one hand.</span></li>
+          <li><strong>Posters, signs, and flyers</strong><span>Materials you can adjust in minutes instead of waiting on someone else.</span></li>
+          <li><strong>Print-ready files</strong><span>Export PDFs that a printer accepts, with the right size, margins, and color.</span></li>
+          <li><strong>Better work with designers</strong><span>Share the same vocabulary, give clearer feedback, and know what’s possible.</span></li>
+          <li><strong>A portfolio you can point to</strong><span>Your word page is evidence of new skills for reviews and applications.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="ck ck-band" aria-hidden="true"></div>
+  <div class="wrap">
+    <strong>Adobe InDesign and Adobe Illustrator for beginners</strong>
+    <span>A professional learning cohort for colleagues.</span>
+    <small>Adobe, InDesign, and Illustrator are trademarks of Adobe. This page is not affiliated with or endorsed by Adobe.</small>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function select(tab) {
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  }
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { select(tab); });
+    tab.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        var next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        select(next); next.focus();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
