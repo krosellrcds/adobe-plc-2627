@@ -86,7 +86,19 @@ a { color: inherit; }
 .hero { padding: clamp(24px, 4vw, 44px) 0 clamp(28px, 5vw, 52px); }
 .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
 .panel { border: 2.5px solid var(--ink); border-radius: 32px; }
-.b-title { grid-column: 1 / 8; background: var(--bg); padding: clamp(24px, 3.4vw, 44px); }
+.b-title {
+  grid-column: 1 / 8; position: relative; isolation: isolate; overflow: hidden;
+  background: transparent; padding: clamp(24px, 3.4vw, 44px);
+}
+.b-title::before, .b-title::after { content: ""; position: absolute; inset: 0; z-index: -1; }
+.b-title::before {
+  inset: -12px; z-index: -2; background: url("images/cone-1.jpg") center 48% / cover no-repeat;
+  filter: blur(8px); transform: scale(1.04);
+}
+.b-title::after {
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
 .b-title h1 { font-size: clamp(2.2rem, 4.7vw, 3.9rem); line-height: 1.03; }
 .b-title .sub { font-size: 1.2rem; margin-top: 20px; max-width: 44ch; font-weight: 600; color: var(--muted); }
 .b-title .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
@@ -240,7 +252,7 @@ footer small { opacity: .8; }
   <div class="wrap bar">
     <a class="brand" href="#top" aria-label="Back to top">
       <i class="ck" aria-hidden="true"></i>
-      <span>InDesign + Illustrator cohort</span>
+      <span>PLC Cohort 2026-2027</span>
     </a>
     <nav class="nav" aria-label="Page sections">
       <a href="#about">About</a>
@@ -258,11 +270,11 @@ footer small { opacity: .8; }
 <div class="hero">
   <div class="wrap bento">
     <div class="panel b-title">
-      <h1>Adobe InDesign and Adobe Illustrator for beginners</h1>
-      <p class="sub">A professional learning cohort for colleagues. Start with a blank artboard, finish with a page you designed yourself.</p>
+      <h1>Adobe InDesign and Adobe Illustrator for Beginners</h1>
+      <p class="sub">A professional learning cohort for colleagues. Start with the basics, and finish this design journey with projects of your very own!</p>
       <div class="cta">
         <a class="btn" href="#about">See what you’ll learn</a>
-        <a class="btn ghost" href="#projects">Browse participant projects</a>
+        <a class="btn ghost" href="#projects">Browse projects</a>
       </div>
     </div>
 
