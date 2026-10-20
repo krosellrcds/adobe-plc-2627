@@ -83,28 +83,57 @@ a { color: inherit; }
 .btn.ghost { background: var(--bg); color: var(--ink); }
 
 /* hero: bento grid, like the faces of a pack */
-.hero { padding: clamp(24px, 4vw, 44px) 0 clamp(28px, 5vw, 52px); }
+.hero {
+  position: relative; isolation: isolate;
+  padding: clamp(24px, 4vw, 44px) 0 clamp(28px, 5vw, 52px);
+}
+.hero::before, .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.hero::before {
+  inset: -14px; z-index: -2; background: url("images/cone-1.jpg") center 48% / cover no-repeat;
+  filter: blur(12px); opacity: .2; transform: scale(1.03);
+}
+.hero::after {
+  background: color-mix(in srgb, var(--bg) 28%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
 .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
 .panel { border: 2.5px solid var(--ink); border-radius: 32px; }
 .b-title {
-  grid-column: 1 / 8; position: relative; isolation: isolate; overflow: hidden;
-  background: transparent; padding: clamp(24px, 3.4vw, 44px);
-}
-.b-title::before, .b-title::after { content: ""; position: absolute; inset: 0; z-index: -1; }
-.b-title::before {
-  inset: -12px; z-index: -2; background: url("images/cone-1.jpg") center 48% / cover no-repeat;
-  filter: blur(8px); transform: scale(1.04);
-}
-.b-title::after {
-  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  grid-column: 1 / 8; background: color-mix(in srgb, var(--bg) 58%, transparent);
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  padding: clamp(24px, 3.4vw, 44px);
 }
 .b-title h1 { font-size: clamp(2.2rem, 4.7vw, 3.9rem); line-height: 1.03; }
 .b-title .sub { font-size: 1.2rem; margin-top: 20px; max-width: 44ch; font-weight: 600; color: var(--muted); }
 .b-title .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
 .b-art { grid-column: 8 / 13; grid-row: 1 / 3; --sq: 36px; --a: var(--blue); --b: var(--bg); position: relative; display: grid; place-items: center; padding: 28px; overflow: hidden; min-height: 440px; }
-.stage { width: min(100%, 320px); aspect-ratio: 1; border-radius: 50%; background: var(--bg); border: 2.5px solid var(--ink); display: grid; place-items: center; }
-.cone { width: 64%; height: auto; overflow: visible; margin-top: 6%; }
+.stage {
+  position: relative; isolation: isolate; overflow: hidden; width: min(100%, 360px);
+  aspect-ratio: 1.18; border-radius: 50%; border: 2.5px solid var(--ink);
+  background: var(--bg); display: grid; place-items: center;
+}
+.stage::before, .stage::after { content: ""; position: absolute; inset: 0; z-index: -1; }
+.stage::before {
+  inset: -8px; z-index: -2; background: url("images/icecream-1.jpg") center / cover no-repeat;
+  opacity: .2; filter: blur(3px); transform: scale(1.03);
+}
+.stage::after {
+  background: color-mix(in srgb, var(--bg) 42%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.app-logos { display: flex; align-items: center; justify-content: center; gap: clamp(8px, 2vw, 18px); padding: 12px; }
+.app-logo {
+  display: flex; align-items: center; gap: 8px; padding: 8px 12px 8px 8px;
+  border: 2px solid var(--ink); border-radius: 14px; background: color-mix(in srgb, var(--bg) 84%, transparent);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  font-weight: 800; font-size: clamp(.7rem, 1.5vw, .9rem); line-height: 1.1;
+}
+.app-icon {
+  display: grid; place-items: center; width: 42px; height: 42px; flex: none;
+  border: 2px solid var(--ink); border-radius: 8px; font-family: var(--display); font-size: 1.35rem;
+}
+.app-logo.ai .app-icon { background: var(--cyan); color: var(--ink); }
+.app-logo.id .app-icon { background: var(--blue); color: var(--bg); }
 .sticker {
   position: absolute; top: 18px; right: 18px; width: 104px; height: 104px; border-radius: 50%;
   background: var(--cyan); color: var(--ink); border: 2.5px solid var(--ink); display: grid; place-items: center; text-align: center;
@@ -114,23 +143,26 @@ a { color: inherit; }
 .stat { padding: 22px 26px; display: flex; flex-direction: column; justify-content: center; }
 .stat b { font-family: var(--display); font-weight: 400; font-size: 2.4rem; line-height: 1; }
 .stat span { font-weight: 700; margin-top: 6px; }
-.stat.s1 { background: var(--cyan); }
-.stat.s2 { background: var(--mint); }
+.stat.s1 {
+  background: color-mix(in srgb, var(--cyan) 72%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.stat.s2 {
+  background: color-mix(in srgb, var(--mint) 72%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
 @media (max-width: 900px) {
   .b-title, .b-row, .b-art { grid-column: 1 / -1; grid-row: auto; }
   .b-art { min-height: 380px; }
 }
 @media (max-width: 480px) { .b-row { grid-template-columns: 1fr; } }
 
-/* the one orchestrated moment: scoops drop onto the cone */
-.drop { animation: drop .9s cubic-bezier(.3,1.4,.5,1) both; }
-.d1 { animation-delay: .25s; } .d2 { animation-delay: .7s; } .d3 { animation-delay: 1.15s; }
-@keyframes drop {
-  0% { transform: translateY(-300px); opacity: 0; }
-  15% { opacity: 1; }
-  100% { transform: translateY(0); opacity: 1; }
+@media (max-width: 480px) {
+  .app-logos { gap: 4px; padding: 6px; }
+  .app-logo { gap: 4px; padding: 4px; font-size: .65rem; }
+  .app-icon { width: 30px; height: 30px; }
 }
-@media (prefers-reduced-motion: reduce) { .drop { animation: none; } html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 /* sections */
 section { padding: clamp(52px, 8vw, 96px) 0; }
@@ -189,7 +221,20 @@ section { padding: clamp(52px, 8vw, 96px) 0; }
 .practice { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; justify-content: space-between; background: var(--card); padding: 22px 28px; }
 .practice p { font-weight: 700; max-width: 46ch; }
 .practice .links { display: flex; flex-wrap: wrap; gap: 12px; }
+.quick-reference { margin-top: 44px; }
+.quick-reference > h3 { font-size: clamp(1.7rem, 3vw, 2.2rem); }
+.quick-reference > p { margin-top: 10px; color: var(--muted); }
+.reference-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 22px; }
+.reference-card { min-width: 0; padding: clamp(18px, 2.5vw, 28px); background: var(--card); }
+.reference-card h4 { margin: 0 0 16px; font-size: 1.1rem; }
+.reference-list { display: grid; grid-template-columns: minmax(100px, .7fr) 1.3fr; gap: 12px 18px; margin: 0; }
+.reference-list dt { font-weight: 800; }
+.reference-list dd { margin: 0; }
+.reference-list kbd { font: 700 .85rem var(--body); color: var(--detail); border: 2px solid var(--detail); border-radius: 7px; padding: 1px 7px; background: var(--bg); white-space: nowrap; }
+.reference-links { display: grid; gap: 10px; margin: 0; padding-left: 20px; }
+.reference-links a { font-weight: 700; }
 @media (max-width: 980px) { .sessions { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) { .reference-grid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .sessions { grid-template-columns: 1fr; } }
 
 /* projects */
@@ -280,40 +325,17 @@ footer small { opacity: .8; }
 
     <div class="panel b-art ck">
       <div class="sticker">for<br>beginners</div>
-      <div class="stage">
-        <svg class="cone" viewBox="0 20 360 500" role="img" aria-label="An ice cream cone with two scoops labeled Ai and Id">
-          <defs><clipPath id="coneClip"><path d="M80 270 L280 270 L180 500 Z"/></clipPath></defs>
-          <g stroke-linejoin="round" stroke-linecap="round">
-            <path d="M80 270 L280 270 L180 500 Z" fill="var(--mint)" style="stroke:var(--ink)" stroke-width="7"/>
-            <g clip-path="url(#coneClip)" style="stroke:var(--ink)" stroke-width="4" opacity=".55">
-              <path d="M60 300 L240 520 M100 280 L280 500 M140 270 L320 470 M180 270 L340 430"/>
-              <path d="M300 300 L120 520 M260 280 L80 500 M220 270 L40 470 M180 270 L20 430"/>
-            </g>
-            <path d="M80 270 L280 270 L180 500 Z" fill="none" style="stroke:var(--ink)" stroke-width="7"/>
-
-            <g class="drop d1">
-              <path d="M82 245 A98 98 0 0 1 278 245 Q270 290 248 272 Q232 302 212 274 Q192 304 170 274 Q150 302 128 274 Q100 290 82 245 Z" fill="var(--cyan)" style="stroke:var(--ink)" stroke-width="7"/>
-              <path d="M110 205 Q124 170 160 160" fill="none" stroke="var(--bg)" stroke-width="8" opacity=".55"/>
-              <text x="180" y="236" text-anchor="middle" font-family="Bagel Fat One, Arial Rounded MT Bold, sans-serif" font-size="58" style="fill:var(--ink)">Ai</text>
-            </g>
-            <g class="drop d2">
-              <path d="M98 165 A82 82 0 0 1 262 165 Q255 205 238 188 Q222 214 204 190 Q186 216 168 190 Q150 214 132 190 Q112 205 98 165 Z" fill="var(--blue)" style="stroke:var(--ink)" stroke-width="7"/>
-              <path d="M122 132 Q134 108 160 102" fill="none" stroke="var(--bg)" stroke-width="7" opacity=".55"/>
-              <text x="180" y="156" text-anchor="middle" font-family="Bagel Fat One, Arial Rounded MT Bold, sans-serif" font-size="46" style="fill:var(--bg)">Id</text>
-            </g>
-            <g class="drop d3">
-              <path d="M180 70 Q186 48 208 38" fill="none" style="stroke:var(--ink)" stroke-width="7"/>
-              <circle cx="180" cy="82" r="17" fill="var(--mint)" style="stroke:var(--ink)" stroke-width="7"/>
-              <circle cx="174" cy="76" r="4" fill="var(--bg)" opacity=".7" stroke="none"/>
-            </g>
-          </g>
-        </svg>
+      <div class="stage" role="img" aria-label="A frosted ice cream cone with Illustrator Ai and InDesign Id logo marks">
+        <div class="app-logos" aria-hidden="true">
+          <div class="app-logo ai"><span class="app-icon">Ai</span><span>Illustrator</span></div>
+          <div class="app-logo id"><span class="app-icon">Id</span><span>InDesign</span></div>
+        </div>
       </div>
     </div>
 
     <div class="b-row">
-      <div class="panel stat s1"><b>4</b><span>hands-on sessions</span></div>
-      <div class="panel stat s2"><b>0</b><span>design experience needed</span></div>
+      <div class="panel stat s1"><b>Professional design skills</b><span>Create logos, shape brand identities, and produce polished publications, for print or digital communications.</span></div>
+      <div class="panel stat s2"><b>Portfolio-ready projects</b><span>Build work you can share in a portfolio or use in presentations, newsletters, and other workplace materials.</span></div>
     </div>
   </div>
 </div>
@@ -434,6 +456,51 @@ footer small { opacity: .8; }
       <div class="links">
         <a class="btn" href="https://helpx.adobe.com/illustrator/tutorials.html" target="_blank" rel="noopener">Illustrator tutorials</a>
         <a class="btn" href="https://helpx.adobe.com/indesign/tutorials.html" target="_blank" rel="noopener">InDesign tutorials</a>
+      </div>
+    </div>
+
+    <div class="quick-reference" aria-labelledby="quick-reference-title">
+      <h3 id="quick-reference-title">Quick reference</h3>
+      <p>A handy guide to common shortcuts, print terms, and places to find design inspiration. Add to it as you learn.</p>
+      <div class="reference-grid">
+        <article class="panel reference-card">
+          <h4>Main tool shortcuts</h4>
+          <dl class="reference-list">
+            <dt>Selection</dt><dd><kbd>V</kbd> Select and move objects or frames.</dd>
+            <dt>Type</dt><dd><kbd>T</kbd> Create or edit text.</dd>
+            <dt>Rectangle Frame</dt><dd><kbd>F</kbd> Create an image placeholder in InDesign.</dd>
+            <dt>Direct Selection</dt><dd><kbd>A</kbd> Edit points and paths in Illustrator.</dd>
+          </dl>
+        </article>
+
+        <article class="panel reference-card">
+          <h4>Print media terms</h4>
+          <dl class="reference-list">
+            <dt>Margin</dt><dd>The space between the page edge and the main content. Keep important text and images inside it.</dd>
+            <dt>Bleed</dt><dd>Artwork that extends beyond the trim edge so color reaches the cut edge. 0.125 in (3 mm) is common; check your printer’s specifications.</dd>
+            <dt>Gutter</dt><dd>The space between columns, or the inner margin where facing pages meet at the binding.</dd>
+          </dl>
+        </article>
+
+        <article class="panel reference-card">
+          <h4>Design keywords</h4>
+          <dl class="reference-list">
+            <dt>Alignment</dt><dd>How text and objects line up to create order.</dd>
+            <dt>Contrast</dt><dd>Differences in size, color, or weight that help elements stand apart.</dd>
+            <dt>Hierarchy</dt><dd>The visual order that guides readers to what matters first.</dd>
+            <dt>White space</dt><dd>Open space around content that helps a layout feel clear and balanced.</dd>
+            <dt>Typography</dt><dd>The choice and arrangement of type to make text readable and expressive.</dd>
+          </dl>
+        </article>
+
+        <article class="panel reference-card">
+          <h4>Resources and inspiration</h4>
+          <ul class="reference-links">
+            <li>Free photos and video: <a href="https://www.pexels.com/" target="_blank" rel="noopener">Pexels</a> · <a href="https://burst.shopify.com/" target="_blank" rel="noopener">Burst by Shopify</a></li>
+            <li>Design inspiration: <a href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a> · <a href="https://www.pinterest.com/" target="_blank" rel="noopener">Pinterest</a></li>
+            <li>Visual discovery: <a href="https://www.cosmos.so/" target="_blank" rel="noopener">Cosmos</a> · <a href="https://savee.it/" target="_blank" rel="noopener">Savee</a> · <a href="https://same.energy/" target="_blank" rel="noopener">Same Energy</a></li>
+          </ul>
+        </article>
       </div>
     </div>
   </div>
