@@ -11,18 +11,18 @@
 :root {
   --bg: #F7F7F2;
   --ink: #000000;
-  --muted: #2E2E2E;
-  --card: #F7F7F2;
-  --head: #054A91;
-  --detail: #054A91;
-  --mint: #E4FDE1;
-  --cyan: #00B4D8;
   --blue: #054A91;
-  --btn-bg: #054A91;
-  --btn-ink: #F7F7F2;
-  --foot-bg: #000000;
-  --foot-ink: #F7F7F2;
-  --foot-head: #00B4D8;
+  --cyan: #00B4D8;
+  --mint: #E4FDE1;
+  --muted: var(--ink);
+  --card: var(--bg);
+  --head: var(--blue);
+  --detail: var(--blue);
+  --btn-bg: var(--blue);
+  --btn-ink: var(--bg);
+  --foot-bg: var(--ink);
+  --foot-ink: var(--bg);
+  --foot-head: var(--cyan);
   --display: "Bagel Fat One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
   --body: "Figtree", "Segoe UI", system-ui, sans-serif;
   --serif: "Fraunces", Georgia, serif;
@@ -31,21 +31,8 @@
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #000000; --ink: #F7F7F2; --muted: #C8CBC5; --card: #0C1218;
-    --head: #00B4D8; --detail: #00B4D8; --mint: #0F2A22; --cyan: #04596E; --blue: #054A91;
-    --btn-bg: #00B4D8; --btn-ink: #000000;
-    --foot-bg: #0C1218; --foot-ink: #F7F7F2; --foot-head: #00B4D8;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #000000; --ink: #F7F7F2; --muted: #C8CBC5; --card: #0C1218;
-  --head: #00B4D8; --detail: #00B4D8; --mint: #0F2A22; --cyan: #04596E; --blue: #054A91;
-  --btn-bg: #00B4D8; --btn-ink: #000000;
-  --foot-bg: #0C1218; --foot-ink: #F7F7F2; --foot-head: #00B4D8;
-  color-scheme: dark;
+:root:not([data-theme="light"]) {
+  color-scheme: light;
 }
 
 *, *::before, *::after { box-sizing: inherit; }
@@ -181,8 +168,8 @@ section { padding: clamp(52px, 8vw, 96px) 0; }
 .session:nth-child(2) { background: var(--cyan); --a: var(--blue); --b: var(--cyan); }
 .session:nth-child(2) h3 { color: var(--ink); }
 .session:nth-child(3) { background: var(--card); --a: var(--cyan); --b: var(--card); }
-.session:nth-child(4) { background: var(--blue); --a: var(--cyan); --b: var(--blue); color: #F7F7F2; }
-.session:nth-child(4) h3 { color: #F7F7F2; }
+.session:nth-child(4) { background: var(--blue); --a: var(--cyan); --b: var(--blue); color: var(--bg); }
+.session:nth-child(4) h3 { color: var(--bg); }
 .session .pack-body { display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .session .n { font-family: var(--display); font-size: 3rem; line-height: 1; }
 .session h3 { font-size: 1.3rem; }
@@ -207,24 +194,24 @@ section { padding: clamp(52px, 8vw, 96px) 0; }
 .tile .shape { position: absolute; z-index: 1; border: 2.5px solid var(--ink); }
 .t1 { background: var(--bg); color: var(--ink); }
 .t1 .word { font-family: var(--display); font-size: 17cqw; color: var(--head); }
-.t1 .shape { width: 70cqw; height: 70cqw; border-radius: 50%; background: #054A91; right: -22cqw; bottom: -18cqw; }
+.t1 .shape { width: 70cqw; height: 70cqw; border-radius: 50%; background: var(--blue); right: -22cqw; bottom: -18cqw; }
 .t2 { background: var(--mint); color: var(--ink); }
 .t2 .word { font-family: var(--serif); font-style: italic; font-weight: 600; font-size: 26cqw; color: var(--head); }
-.t2 .shape { left: 0; right: 0; top: 46%; height: 14cqw; border-left: 0; border-right: 0; background: conic-gradient(#054A91 25%, #F7F7F2 0 50%, #054A91 0 75%, #F7F7F2 0) 0 0 / 14cqw 14cqw; }
+.t2 .shape { left: 0; right: 0; top: 46%; height: 14cqw; border-left: 0; border-right: 0; background: conic-gradient(var(--blue) 25%, var(--bg) 0 50%, var(--blue) 0 75%, var(--bg) 0) 0 0 / 14cqw 14cqw; }
 .t3 { background: var(--card); color: var(--ink); flex-direction: row; }
 .t3 .word { font-family: var(--display); font-size: 21cqw; writing-mode: vertical-rl; color: var(--head); }
 .t3 .lines { align-self: flex-end; width: 34%; height: 40cqw; }
-.t3 .shape { width: 44cqw; height: 44cqw; border-radius: 50% 50% 0 0; background: #00B4D8; right: 6cqw; top: 6cqw; }
-.t4 { background: #054A91; color: #F7F7F2; }
+.t3 .shape { width: 44cqw; height: 44cqw; border-radius: 50% 50% 0 0; background: var(--cyan); right: 6cqw; top: 6cqw; }
+.t4 { background: var(--blue); color: var(--bg); }
 .t4 .word { font-family: var(--body); font-weight: 800; font-size: 28cqw; letter-spacing: -0.05em; }
-.t4 .shape { width: 52cqw; height: 52cqw; border-radius: 14cqw 0 14cqw 0; right: 8cqw; top: 34%; transform: rotate(12deg); background: conic-gradient(#00B4D8 25%, #E4FDE1 0 50%, #00B4D8 0 75%, #E4FDE1 0) 0 0 / 26cqw 26cqw; border-color: #000; }
+.t4 .shape { width: 52cqw; height: 52cqw; border-radius: 14cqw 0 14cqw 0; right: 8cqw; top: 34%; transform: rotate(12deg); background: conic-gradient(var(--cyan) 25%, var(--mint) 0 50%, var(--cyan) 0 75%, var(--mint) 0) 0 0 / 26cqw 26cqw; border-color: var(--ink); }
 .t5 { background: var(--bg); color: var(--ink); }
 .t5 .word { font-family: var(--serif); font-weight: 600; font-size: 22cqw; }
-.t5 .shape { width: 26cqw; height: 26cqw; border-radius: 50%; background: #00B4D8; right: 10cqw; top: 46%; }
-.t5 .shape.b { width: 16cqw; height: 16cqw; background: #054A91; right: 28cqw; top: 62%; }
-.t6 { background: #000; color: #F7F7F2; }
-.t6 .word { font-family: var(--display); font-size: 23cqw; color: #00B4D8; }
-.t6 .shape { width: 40cqw; height: 40cqw; border-radius: 50%; background: #E4FDE1; right: 8cqw; top: 38%; box-shadow: inset -12cqw -4cqw 0 #00B4D8; border-color: #F7F7F2; }
+.t5 .shape { width: 26cqw; height: 26cqw; border-radius: 50%; background: var(--cyan); right: 10cqw; top: 46%; }
+.t5 .shape.b { width: 16cqw; height: 16cqw; background: var(--blue); right: 28cqw; top: 62%; }
+.t6 { background: var(--ink); color: var(--bg); }
+.t6 .word { font-family: var(--display); font-size: 23cqw; color: var(--cyan); }
+.t6 .shape { width: 40cqw; height: 40cqw; border-radius: 50%; background: var(--mint); right: 8cqw; top: 38%; box-shadow: inset -12cqw -4cqw 0 var(--cyan); border-color: var(--bg); }
 
 /* closing: the inner label sits on a checkerboard wrapper */
 #next { padding-block: clamp(40px, 6vw, 80px); }
@@ -285,7 +272,7 @@ footer small { opacity: .8; }
         <svg class="cone" viewBox="0 20 360 500" role="img" aria-label="An ice cream cone with two scoops labeled Ai and Id">
           <defs><clipPath id="coneClip"><path d="M80 270 L280 270 L180 500 Z"/></clipPath></defs>
           <g stroke-linejoin="round" stroke-linecap="round">
-            <path d="M80 270 L280 270 L180 500 Z" fill="#E4FDE1" style="stroke:var(--ink)" stroke-width="7"/>
+            <path d="M80 270 L280 270 L180 500 Z" fill="var(--mint)" style="stroke:var(--ink)" stroke-width="7"/>
             <g clip-path="url(#coneClip)" style="stroke:var(--ink)" stroke-width="4" opacity=".55">
               <path d="M60 300 L240 520 M100 280 L280 500 M140 270 L320 470 M180 270 L340 430"/>
               <path d="M300 300 L120 520 M260 280 L80 500 M220 270 L40 470 M180 270 L20 430"/>
@@ -293,19 +280,19 @@ footer small { opacity: .8; }
             <path d="M80 270 L280 270 L180 500 Z" fill="none" style="stroke:var(--ink)" stroke-width="7"/>
 
             <g class="drop d1">
-              <path d="M82 245 A98 98 0 0 1 278 245 Q270 290 248 272 Q232 302 212 274 Q192 304 170 274 Q150 302 128 274 Q100 290 82 245 Z" fill="#00B4D8" style="stroke:var(--ink)" stroke-width="7"/>
-              <path d="M110 205 Q124 170 160 160" fill="none" stroke="#fff" stroke-width="8" opacity=".55"/>
-              <text x="180" y="236" text-anchor="middle" font-family="Bagel Fat One, Arial Rounded MT Bold, sans-serif" font-size="58" style="fill:#000000">Ai</text>
+              <path d="M82 245 A98 98 0 0 1 278 245 Q270 290 248 272 Q232 302 212 274 Q192 304 170 274 Q150 302 128 274 Q100 290 82 245 Z" fill="var(--cyan)" style="stroke:var(--ink)" stroke-width="7"/>
+              <path d="M110 205 Q124 170 160 160" fill="none" stroke="var(--bg)" stroke-width="8" opacity=".55"/>
+              <text x="180" y="236" text-anchor="middle" font-family="Bagel Fat One, Arial Rounded MT Bold, sans-serif" font-size="58" style="fill:var(--ink)">Ai</text>
             </g>
             <g class="drop d2">
-              <path d="M98 165 A82 82 0 0 1 262 165 Q255 205 238 188 Q222 214 204 190 Q186 216 168 190 Q150 214 132 190 Q112 205 98 165 Z" fill="#054A91" style="stroke:var(--ink)" stroke-width="7"/>
-              <path d="M122 132 Q134 108 160 102" fill="none" stroke="#fff" stroke-width="7" opacity=".55"/>
-              <text x="180" y="156" text-anchor="middle" font-family="Bagel Fat One, Arial Rounded MT Bold, sans-serif" font-size="46" style="fill:#F7F7F2">Id</text>
+              <path d="M98 165 A82 82 0 0 1 262 165 Q255 205 238 188 Q222 214 204 190 Q186 216 168 190 Q150 214 132 190 Q112 205 98 165 Z" fill="var(--blue)" style="stroke:var(--ink)" stroke-width="7"/>
+              <path d="M122 132 Q134 108 160 102" fill="none" stroke="var(--bg)" stroke-width="7" opacity=".55"/>
+              <text x="180" y="156" text-anchor="middle" font-family="Bagel Fat One, Arial Rounded MT Bold, sans-serif" font-size="46" style="fill:var(--bg)">Id</text>
             </g>
             <g class="drop d3">
               <path d="M180 70 Q186 48 208 38" fill="none" style="stroke:var(--ink)" stroke-width="7"/>
-              <circle cx="180" cy="82" r="17" fill="#E4FDE1" style="stroke:var(--ink)" stroke-width="7"/>
-              <circle cx="174" cy="76" r="4" fill="#fff" opacity=".7" stroke="none"/>
+              <circle cx="180" cy="82" r="17" fill="var(--mint)" style="stroke:var(--ink)" stroke-width="7"/>
+              <circle cx="174" cy="76" r="4" fill="var(--bg)" opacity=".7" stroke="none"/>
             </g>
           </g>
         </svg>
@@ -324,14 +311,14 @@ footer small { opacity: .8; }
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
-    <h2>Two programs, one way to make ideas look intentional</h2>
+    <h2>Two programs, two specialty applications</h2>
     <p class="lead">Illustrator is where you draw. InDesign is where you arrange. Beginners learn them side by side, so a logo made in one can land on a page built in the other.</p>
 
     <div class="flavors">
       <article class="pack flavor cyan">
         <div class="pack-body">
           <h3>Adobe Illustrator</h3>
-          <p class="tag">Draw shapes, icons, and logos that stay sharp at any size.</p>
+          <p class="tag">For image creation, branding, Typographic graphic design work. Draw shapes, icons, and logos that stay sharp at any size.</p>
           <ul>
             <li>Build artwork from basic shapes and the Pen tool</li>
             <li>Choose and organize color with swatches</li>
